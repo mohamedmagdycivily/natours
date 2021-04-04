@@ -1,10 +1,16 @@
 const fs = require('fs');
 const express = require('express');
 const { json } = require('express');
+const morgan = require('morgan');
 const app = express();
 
-//to add the body to the req
+//middleware
 app.use(express.json());
+app.use(morgan('dev'));
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 //read all tours
 let tours = JSON.parse(
@@ -12,6 +18,7 @@ let tours = JSON.parse(
 );
 
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
   res.status(200).json({
     status: 'success',
     results: tours.length,
@@ -23,6 +30,7 @@ const getAllTours = (req, res) => {
 
 const getTour = (req, res) => {
   //transform string to number
+  console.log(req.requestTime);
   const id = req.params.id * 1;
   const tour = tours.find((el) => el.id === id);
   if (!tour) {
