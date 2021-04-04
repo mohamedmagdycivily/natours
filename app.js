@@ -77,7 +77,23 @@ app.post('/api/v1/tours', (req, res) => {
     }
   );
 });
-
+//handel delete tour
+app.delete('/api/v1/tours/:id', (req, res) => {
+  //transform string to number
+  const id = req.params.id * 1;
+  if (id > tours.length - 1) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+  res.status(204).json({
+    status: 'success',
+    data: {
+      data: null,
+    },
+  });
+});
 const port = 3000;
 app.listen(port, () => {
   console.log(`application is listening on port ${port}`);
