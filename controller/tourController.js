@@ -16,6 +16,16 @@ exports.checkId = (req, res, next, val) => {
   next();
 };
 
+exports.checkBody = (req, res, next) => {
+  if (!req.body.price || !req.body.name) {
+    return res.status(400).json({
+      status: 'bad request',
+      message: 'send price and name',
+    });
+  }
+  next();
+};
+
 exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
   res.status(200).json({
