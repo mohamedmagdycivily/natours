@@ -1,7 +1,7 @@
-const fs = require('fs');
 const express = require('express');
-// const { json } = require('express');
+const { json } = require('express');
 const morgan = require('morgan');
+
 const app = express();
 
 const tourRouter = require('./routes/tourRoutes');
