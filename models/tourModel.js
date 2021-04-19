@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-// const slugify = require('slugify');
-// const validator = require('validator');
+const slugify = require('slugify');
+const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -90,24 +90,26 @@ tourSchema.virtual('durationWeeks').get(function () {
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
-// tourSchema.pre('save', function (next) {
-//   this.slug = slugify(this.name, { lower: true });
-//   next();
-// });
+tourSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
 
-// tourSchema.pre('save', function(next) {
+// tourSchema.pre('save', function (next) {
 //   console.log('Will save document...');
 //   next();
 // });
 
-// tourSchema.post('save', function(doc, next) {
+// tourSchema.post('save', function (doc, next) {
 //   console.log(doc);
 //   next();
 // });
 
 // QUERY MIDDLEWARE
 // tourSchema.pre('find', function(next) {
+
 tourSchema.pre(/^find/, function (next) {
+  // the keyword this here represent the query
   this.find({ secretTour: { $ne: true } });
 
   this.start = Date.now();
@@ -123,7 +125,7 @@ tourSchema.post(/^find/, function (docs, next) {
 tourSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
 
-  console.log(this.pipeline());
+  // console.log(this.pipeline());
   next();
 });
 
