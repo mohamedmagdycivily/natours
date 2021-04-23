@@ -68,7 +68,7 @@ const sendErrorProd = (err, res) => {
 
 module.exports = (err, req, res, next) => {
   // console.log(err.stack);
-
+  console.log('in the error controller.js 🏏 ');
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
