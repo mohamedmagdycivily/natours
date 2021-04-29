@@ -22,7 +22,10 @@ const sendEmail = async (options) => {
   };
 
   // 3) Actually send the email
-  console.log('1');
+  console.log('process.env.EMAIL_HOST', process.env.EMAIL_HOST);
+  console.log('process.env.EMAIL_PORT', process.env.EMAIL_PORT);
+  console.log('process.env.EMAIL_USERNAME', process.env.EMAIL_USERNAME);
+  console.log('process.env.EMAIL_PASSWORD', process.env.EMAIL_PASSWORD);
   await transporter.sendMail(mailOptions);
   console.log('1');
 };
