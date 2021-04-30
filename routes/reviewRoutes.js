@@ -12,6 +12,13 @@ router.route('/').get(reviewController.getAllReviews).post(
   reviewController.createReview
 );
 
+router
+  .route('/:id')
+  .delete(
+    authController.restrictsTo('admin', 'user'),
+    reviewController.deleteReview
+  );
+
 // router
 //   .route('/:id')
 //   .get(reviewController.getReview)
