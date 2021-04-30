@@ -14,6 +14,7 @@ router.route('/').get(reviewController.getAllReviews).post(
 
 router
   .route('/:id')
+  .patch(reviewController.updateReview)
   .delete(
     authController.restrictsTo('admin', 'user'),
     reviewController.deleteReview
